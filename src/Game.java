@@ -43,15 +43,26 @@ public class Game {
         postMatchFlow(deck, player);
         System.out.println("1.Continue");
         System.out.println("2.Save & Quit");
-        String input = getInput();
-        switch (input) {
-            case "1" -> gameStart(player, deck);
-            case "2" -> {
-                Player.savePlayer(player);
-                Deck.saveDeck(deck);
-                System.exit(3);
+
+        while (true) {
+            String input = getInput();
+            switch (input) {
+                case "1" -> {
+                    gameStart(player, deck);
+                    break;
+                }
+                case "2" -> {
+                    Player.savePlayer(player);
+                    Deck.saveDeck(deck);
+                    System.exit(3);
+                    break;
+                }
+                default -> System.out.println("Please enter 1 or 2");
+
             }
         }
+
+
     }
 
     private static void postMatchFlow(Deck deck, Player player) {
@@ -102,14 +113,13 @@ public class Game {
     }
 
 
-
     public static String getInput() {
         return scanner.nextLine();
     }
 
     public static void deleteSave() {
-        File playerSave = new File("D:/Programming/Gladiator 0.7/PlayerSave.txt");
-        File playerDeck = new File("D:/Programming/Gladiator 0.7/PlayerDeck.txt");
+        File playerSave = new File("D:/Programming/JAVA/Gladiator 0.7/PlayerSave.txt");
+        File playerDeck = new File("D:/Programming/JAVA/Gladiator 0.7/PlayerDeck.txt");
         if (playerSave.exists()) {
             playerSave.delete();
             System.out.println("Player deleted");

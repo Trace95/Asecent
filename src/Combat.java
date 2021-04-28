@@ -10,7 +10,7 @@ public class Combat {
         // pay card cost
         attacker.setActionPoints(attacker.getActionPoints() - card.getCost());
         // DrawStep
-        drawStep(card.getDraw(),deck,attacker);
+        drawStep(card.getDraw(), deck, attacker);
         // make variables
         int realAttack = card.getAttack() + attacker.getStrength(); // attack + strength modifier
         int damage = (realAttack * (card.getHits() - defender.getParry())) - defender.getBlock(); // damage is the value dealt to health
@@ -19,10 +19,10 @@ public class Combat {
 
 
         // edit damage due to status effects
-        if(attacker.getWeak() > 0){
+        if (attacker.getWeak() > 0) {
             damage = (int) Math.round(damage * 0.75);
         }
-        if(defender.getVulnerable() > 0){
+        if (defender.getVulnerable() > 0) {
             damage = (int) Math.round(damage * 1.25);
         }
 
@@ -32,49 +32,38 @@ public class Combat {
 
 
         // set status effects
-        if(card.getStrength() != 0){
-            attacker.setStrength(attacker.getStrength() + card.getStrength());
-        }
-        if(card.getDexterity() != 0){
-            attacker.setDexterity(attacker.getDexterity() + card.getDexterity());
-        }
-        if (card.getPoison() != 0){
-            defender.setPoison(defender.getPoison() + card.getPoison());
-        }
-        if (card.getWeak() != 0){
-            defender.setWeak(defender.getWeak() + card.getWeak());
-        }
-        if(card.getVulnerable() != 0){
-            defender.setVulnerable(defender.getVulnerable() + card.getVulnerable());
-        }
-        if(card.getParry() != 0){
-            defender.setParry(defender.getParry() + card.getParry());
-        }
+        attacker.setStrength(attacker.getStrength() + card.getStrength());
+        attacker.setDexterity(attacker.getDexterity() + card.getDexterity());
+        defender.setPoison(defender.getPoison() + card.getPoison());
+        defender.setWeak(defender.getWeak() + card.getWeak());
+        defender.setVulnerable(defender.getVulnerable() + card.getVulnerable());
+        defender.setParry(defender.getParry() + card.getParry());
 
-        // prints the combat log
-        combatDisplay(damage, realAttack, blockedDamage, realBlock, attacker, defender ,card);
-
-        //set new values
+        //set defender values
         defender.setBlock(defender.getBlock() - blockedDamage); // remove block
         defender.setHealthPoints(defender.getHealthPoints() - damage);
+
+        // prints the combat log
+        combatDisplay(damage, realAttack, blockedDamage, realBlock, attacker, defender, card);
         return true;
     }
 
-    public static void poisonStep(GamePiece defender){
-        if(defender.getPoison() > 0){
+    public static void poisonStep(GamePiece defender) {
+        if (defender.getPoison() > 0) {
             System.out.println(defender.getName() + " takes " + defender.getPoison() + " poison damage");
             defender.setHealthPoints(defender.getHealthPoints() - defender.getPoison());
         }
     }
 
-    private static void drawStep(int drawAmount,Deck deck,GamePiece attacker) {
+    private static void drawStep(int drawAmount, Deck deck, GamePiece attacker) {
         for (int i = 0; i < drawAmount; i++) {
             deck.getHandPile().add(deck.draw());
         }
         attacker.setHandSize(attacker.getHandSize() + drawAmount);
     }
+
     // CardUI
-    public static void combatDisplay(int damage, int realAttack, int blockedDamage, int realBlock, GamePiece attacker, GamePiece defender,Card card) {
+    public static void combatDisplay(int damage, int realAttack, int blockedDamage, int realBlock, GamePiece attacker, GamePiece defender, Card card) {
         System.out.println("********************COMBAT************************");
         // declare player uses card
         System.out.println(attacker.getName() + " pays " + card.getCost() + " AP and uses " + card.getName() + ".");
@@ -99,27 +88,27 @@ public class Combat {
         }
 
         // show status effects being applied
-        if(card.getPoison() > 0){
+        if (card.getPoison() > 0) {
             System.out.println(defender.getName() + " received " + card.getPoison() + " points of poison");
         }
-        if(card.getStrength() > 0){
+        if (card.getStrength() > 0) {
             System.out.println(card.getName() + " applied " + card.getStrength() + " points of strength");
         }
-        if(card.getDexterity() > 0){
+        if (card.getDexterity() > 0) {
             System.out.println(card.getName() + " applied " + card.getDexterity() + " points of dexterity");
         }
-        if(card.getVulnerable() > 0){
+        if (card.getVulnerable() > 0) {
             System.out.println(defender.getName() + " received " + card.getVulnerable() + " points of vulnerability");
         }
-        if(card.getWeak() > 0){
+        if (card.getWeak() > 0) {
             System.out.println(defender.getName() + " received " + card.getWeak() + " points of weakness");
         }
-        if(card.getParry() > 0){
+        if (card.getParry() > 0) {
             System.out.println(attacker.getName() + " received " + card.getParry() + " points of parry");
         }
 
         // cards drawn
-        if(card.getDraw() > 0){
+        if (card.getDraw() > 0) {
             System.out.println(attacker.getName() + " drew " + card.getDraw() + " cards ");
         }
 

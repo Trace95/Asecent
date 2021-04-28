@@ -26,11 +26,11 @@ public class TurnFlow {
             //show UI
             deck.showDeckStatusUI(player.getActionPoints());
             playerIntent(deck, player, enemy, enemyDeck);
-            resetPlayer(player,false);
+            resetPlayer(player, false);
             resetEnemy(enemy);
         }
         deck.packUpDeck();
-        resetPlayer(player,true);
+        resetPlayer(player, true);
     }
 
     public static void playerIntent(Deck deck, Player player, Enemy enemy, Deck enemyDeck) {
@@ -44,33 +44,41 @@ public class TurnFlow {
             String input = Game.getInput();
             // check player isn't dead
             if (player.getHealthPoints() <= 0) {
-                System.out.println(player.getName() + "died at level" + player.getPlayerLevel());
+                System.out.println(player.getName() + " died at level" + player.getPlayerLevel());
                 input = "q";
             }
 
-            switch (input) { // Control flow
-                case "Q", "q": // Quit
+            /* Control flow
+            changes cardPosition to an int and decrements by 1 so that it refers to the correct position
+            in the array, as the card in position 1 is in the array location 0.
+            */
+
+            switch (input) {
+                // Quit
+                case "Q", "q" -> {
                     Main.exitMessage();
                     System.exit(0);
-                    break;
-                case "D", "d": // View deck
-                    deck.showDrawPile(deck.getDrawPile());
-                    break;
-                case "V", "v": // View discard
-                    deck.showDiscard();
-                    break;
-                case "E", "e": // End turn
+                }
+                // Show Deck
+                case "D", "d" -> deck.showDrawPile(deck.getDrawPile());
+                // Show Discard
+                case "V", "v" -> deck.showDiscard();
+                // show exhaust
+                case "O", "o" -> deck.showExhaust();
+                // EndTurn
+                case "E", "e" -> {
                     endTurn(deck, player, enemy, enemyDeck);
                     endTurn = true;
-                    break;
-                case "kill": //For testing purposes
+                }
+                // Testing
+                case "kill" -> {
                     enemy.setHealthPoints(0);
                     endTurn = true;
-                    break;
-
-                case "1", "2", "3", "4", "5", "6", "7", "8", "9", "10":
-                    // changes cardPosition to an int and decrements by 1 so that it refers to the correct position
-                    // in the array, as the card in position 1 is in the array location 0.
+                }
+                // Testing
+                case "die" -> player.setHealthPoints(0);
+                // Card selection
+                case "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" -> {
                     cardPosition = Integer.parseInt(input.trim()) - 1;
                     if (deck.getHandPile().size() <= cardPosition) {
                         System.out.println("You do not have a card in your hand at position " + input);
@@ -79,11 +87,15 @@ public class TurnFlow {
                     if (cardPosition != -1) {
                         cardPlaySuccess = Combat.playCard(player, enemy, deck.getHandPile().get(cardPosition), deck);
 
-
                         if (cardPlaySuccess && enemy.getHealthPoints() > 0) {
                             System.out.println();
                             player.setHandSize(player.getHandSize() - 1);
-                            deck.discard(cardPosition);
+
+                            if(deck.getHandPile().get(cardPosition).isExhaust()){
+                                deck.exhaustCard(cardPosition);
+                            }else{
+                                deck.discard(cardPosition);
+                            }
                             System.out.print(enemy.showGamePieceStats() + " ");
                             System.out.println(player.showGamePieceStats());
                             // show enemy intent
@@ -99,19 +111,15 @@ public class TurnFlow {
                         System.out.println(player.getName() + " is now level " + player.getPlayerLevel() + "\n");
                         endTurn = true;
                     }
-                    break;
-
-                default:
-                    System.out.println(input + " is not a valid input at this time");
-                    break;
-
+                }
+                default -> System.out.println(input + " is not a valid input at this time");
             }
         }
     }
 
     public static void endTurn(Deck deck, Player player, Enemy enemy, Deck enemyDeck) {
 
-        // discard remaining cards in hand
+        // discard remaining cards in players hand
         deck.discardHand();
         //Set player AP/hand back to default
         player.setActionPoints(player.getBaseActionPoints());
@@ -127,9 +135,7 @@ public class TurnFlow {
         Combat.playCard(enemy, player, enemyDeck.getHandPile().get(0), enemyDeck);
         enemyDeck.discardHand();
 
-
-
-        //status decay
+        // status decay
         GamePiece.decayPoison(player);
         GamePiece.decayPoison(enemy);
 
@@ -145,7 +151,7 @@ public class TurnFlow {
         player.setBlock(0);
         player.setParry(0);
 
-        if(endMatch){
+        if (endMatch) {
             player.setPoison(0);
             player.setWeak(0);
             player.setStrength(0);
@@ -154,7 +160,6 @@ public class TurnFlow {
             player.setBleed(0);
 
         }
-
 
 
     }

@@ -85,8 +85,6 @@ public class Player extends GamePiece{
         return this.name + "," + this.healthPoints + "," + this.baseHealthPoints + "," + this.playerLevel + "," + this.gold;
     }
 
-
-
     // Getters
     public String getName() {
         return name;

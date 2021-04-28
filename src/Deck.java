@@ -21,18 +21,6 @@ public class Deck {
         this.exhaustPile = new ArrayList<>();
     }
 
-    // Deck
-    public void packUpDeck() {
-        drawPile.addAll(discardPile);
-        discardPile.clear();
-
-        drawPile.addAll(handPile);
-        handPile.clear();
-
-        drawPile.addAll(exhaustPile);
-        exhaustPile.clear();
-    }
-
     // HandPile
     public Card draw() {// draw a single Card
         Card card;
@@ -102,7 +90,43 @@ public class Deck {
         }
     }
 
+    // ExhaustPile
+    public void exhaustCard(int cardPosition){
+        if (cardPosition > -1) {
+            exhaustPile.add(handPile.get(cardPosition)); // add card into exhaust pile
+            handPile.remove(cardPosition);// remove card from hand
+        }
+    }
+
+    public void showExhaust(){
+        int position = 1;
+        System.out.println("*********************EXHAUST PILE*********************");
+        if (getExhaustPile().size() == 0) {
+            System.out.println("                        <EMPTY>");
+        } else {
+            for (int i = 0; i < exhaustPile.size(); i++) {
+                Card card = exhaustPile.get(i);
+                System.out.println(position + "." + card.getCardDisplay() + "\n");
+                position++;
+            }
+        }
+        System.out.println("*********************EXHAUST PILE*********************");
+    }
+
+
+
     //DeckPile
+    public void packUpDeck() {
+        drawPile.addAll(discardPile);
+        discardPile.clear();
+
+        drawPile.addAll(handPile);
+        handPile.clear();
+
+        drawPile.addAll(exhaustPile);
+        exhaustPile.clear();
+    }
+
     public void shuffle() {
         Collections.shuffle(drawPile);
     }
@@ -144,7 +168,7 @@ public class Deck {
         Deck deck = new Deck();
         Card strike = new Card("Strike", 1, "Attack", 6, 0, "Deal 6 damage.", 1, 0, 0, 0, 0, 0, 0, false, 0, 0);
         Card defend = new Card("Defend", 1, "Skill", 0, 5, "Block 5 damage.", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card neutralize = new Card("Neutralize", 0, "Attack", 3, 0, "Deal 3 damage. Apply 1 Weak", 1, 0, 45, 0, 0, 1, 0, false, 0, 0);
+        Card neutralize = new Card("Neutralize", 0, "Attack", 3, 0, "Deal 3 damage. Apply 1 Weak", 1, 0, 45, 0, 0, 1, 0, true, 0, 0);
         Card backFlip = new Card("Backflip", 1, "Skill", 0, 5, "Gain 5 block. Draw 2 cards", 0, 2, 66, 0, 0, 0, 0, false, 0, 0);
         Card deadlyPoison = new Card("Deadly Poison", 1, "Skill", 0, 0, "Apply 5 poison", 0, 0, 80, 5, 0, 0, 0, false, 0, 0);
         Card deflect = new Card("Deflect", 0, "Skill", 0, 4, "Gain 4 block.", 0, 0, 45, 0, 0, 0, 0, false, 0, 0);
@@ -177,13 +201,13 @@ public class Deck {
 
     public static Deck makeCardLibrary() {
         Deck cardLibrary = new Deck();
-        Card card = new Card("test", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card1 = new Card("test1", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card2 = new Card("test2", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card3 = new Card("test3", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card4 = new Card("test4", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card5 = new Card("test5", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card6 = new Card("test6", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card = new Card("test", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card1 = new Card("test1", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card2 = new Card("test2", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card3 = new Card("test3", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card4 = new Card("test4", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card5 = new Card("test5", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card card6 = new Card("test6", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
 
 
         cardLibrary.drawPile.add(card);

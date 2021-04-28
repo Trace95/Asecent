@@ -30,28 +30,15 @@ public class Enemy extends GamePiece {
         //generate random values equal to length of the name array
         int randomValue = rand.nextInt(upperbound);
 
-        switch (randomValue) {
-            case 0:
-                enemyName = names[0];
-                break;
-            case 1:
-                enemyName = names[1];
-                break;
-            case 2:
-                enemyName = names[2];
-                break;
-            case 3:
-                enemyName = names[3];
-                break;
-            case 4:
-                enemyName = names[4];
-                break;
-            default:
-                enemyName = "Error in Enemy.makeEnemy()" + randomValue;
-                break;
-        }
-        Enemy enemy = new Enemy(enemyName, enemyHP);
-        return enemy;
+        enemyName = switch (randomValue) {
+            case 0 -> names[0];
+            case 1 -> names[1];
+            case 2 -> names[2];
+            case 3 -> names[3];
+            case 4 -> names[4];
+            default -> "Error in Enemy.makeEnemy()" + randomValue;
+        };
+        return new Enemy(enemyName, enemyHP);
     }
 
     // Getters
@@ -111,8 +98,6 @@ public class Enemy extends GamePiece {
     public String getIntent(Enemy enemy, Deck deck){
         String intent = "";
         deck.drawHand(1);
-
-
 
         if(deck.getHandPile().get(0).getType().equals("Attack")){
             intent += enemy.getName() + " is attacking for " + deck.getHandPile().get(0).getAttack();

@@ -23,18 +23,13 @@ public class Deck {
 
     // Deck
     public void packUpDeck() {
-        for (Card card : discardPile) {
-            drawPile.add(card);
-        }
+        drawPile.addAll(discardPile);
         discardPile.clear();
 
-        for (Card card : handPile) {
-            drawPile.add(card);
-        }
+        drawPile.addAll(handPile);
         handPile.clear();
-        for (Card card : exhaustPile) {
-            drawPile.add(card);
-        }
+
+        drawPile.addAll(exhaustPile);
         exhaustPile.clear();
     }
 
@@ -94,9 +89,7 @@ public class Deck {
     }
 
     public void discardHand() {
-        for (int i = 0; i < handPile.size(); i++) {
-            discardPile.add(handPile.get(i));
-        }
+        discardPile.addAll(handPile);
         handPile.clear();
     }
 
@@ -110,9 +103,8 @@ public class Deck {
     }
 
     //DeckPile
-    public ArrayList<Card> shuffle() {
+    public void shuffle() {
         Collections.shuffle(drawPile);
-        return drawPile;
     }
 
     public void showDrawPile(ArrayList<Card> deck) {
@@ -141,12 +133,7 @@ public class Deck {
     }
 
     private ArrayList<Card> sortDeckByCardName(ArrayList<Card> deck) {
-        Comparator<Card> cardNameComparator = new Comparator<Card>() {
-            @Override
-            public int compare(Card o1, Card o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        };
+        Comparator<Card> cardNameComparator = Comparator.comparing(Card::getName);
         deck.sort(cardNameComparator);
         return deck;
     }
@@ -257,7 +244,7 @@ public class Deck {
                 int dexterity = scanner.nextInt();
                 boolean exhaust = scanner.nextBoolean();
 
-
+                
                 Card card = new Card(name, cost, type, attack, block, effect, hits, draw, goldCost, poison, vulnerable, weak, parry, exhaust, strength, dexterity);
                 deck.drawPile.add(card);
                 cardCount++;
@@ -283,18 +270,18 @@ public class Deck {
 
     private static String deckValueDump(Deck deck) { // returns deck values as a string separated by a ","
         Card card;
-        String deckValueDump = "";
+        StringBuilder deckValueDump = new StringBuilder();
         for (int i = 0; i < deck.drawPile.size(); i++) {
             card = deck.drawPile.get(i);
             String cardDesc = card.toString();
             if (i == deck.drawPile.size() - 1) {
-                deckValueDump += cardDesc;
+                deckValueDump.append(cardDesc);
             } else {
-                deckValueDump += cardDesc + ",";
+                deckValueDump.append(cardDesc).append(",");
             }
 
         }
-        return deckValueDump;
+        return deckValueDump.toString();
     }
 
 

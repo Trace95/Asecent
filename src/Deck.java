@@ -204,23 +204,7 @@ public class Deck {
 
     public static Deck makeCardLibrary() {
         Deck cardLibrary = new Deck();
-        //loadDeck("CardLibrary");
-        Card card = new Card("test", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card1 = new Card("test1", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card2 = new Card("test2", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card3 = new Card("test3", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card4 = new Card("test4", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card5 = new Card("test5", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card card6 = new Card("test6", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
-
-
-        cardLibrary.drawPile.add(card);
-        cardLibrary.drawPile.add(card1);
-        cardLibrary.drawPile.add(card2);
-        cardLibrary.drawPile.add(card3);
-        cardLibrary.drawPile.add(card4);
-        cardLibrary.drawPile.add(card5);
-        cardLibrary.drawPile.add(card6);
+        cardLibrary =loadDeck("CardLibrary");
         return cardLibrary;
 
     }
@@ -294,8 +278,8 @@ public class Deck {
         return makeBaseDeck();
     }
 
-    public static void saveDeck(Deck deck) {
-        try (FileWriter playerSav = new FileWriter("PlayerDeck.txt")) {
+    public static void saveDeck(Deck deck, String name) {
+        try (FileWriter playerSav = new FileWriter(name + ".txt")) {
             playerSav.write(deckValueDump(deck));
         } catch (IOException e) {
             e.printStackTrace();

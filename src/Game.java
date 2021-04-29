@@ -54,7 +54,7 @@ public class Game {
                 }
                 case "2" -> {
                     Player.savePlayer(player);
-                    Deck.saveDeck(deck);
+                    Deck.saveDeck(deck,"PlayerDeck");
                     System.exit(3);
                     break;
                 }

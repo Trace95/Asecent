@@ -95,23 +95,20 @@ public class Enemy extends GamePiece {
         this.dexterity = dexterity;
     }
 
-    public String getIntent(Enemy enemy, Deck deck){
+    public String getIntent(Enemy enemy, Deck deck) {
         String intent = "";
         deck.drawHand(1);
+        Card card = deck.getHandPile().get(0);
 
-        if(deck.getHandPile().get(0).getType().equals("Attack")){
-            intent += enemy.getName() + " is attacking for " + deck.getHandPile().get(0).getAttack();
-            if(enemy.getStrength() != 0){
-                intent += " is attacking for *" + deck.getHandPile().get(0).getAttack() + enemy.getStrength();
-            }
-
-            if(deck.getHandPile().get(0).getHits() > 1){
-                intent += ", "+deck.getHandPile().get(0).getHits() + " times";
-            }
-        }else{
+        if (card.getType().equals("Attack") && card.getHits() <= 1 && enemy.getStrength() == 0) {
+            intent += enemy.getName() + " is attacking for " + card.getAttack() + " damage";
+        } else if (card.getType().equals("Attack") && card.getHits() <= 1 && enemy.getStrength() != 0) {
+            intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage";
+        } else if (card.getType().equals("Attack") && card.getHits() > 0) {
+            intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage "+ card.getHits() + " times";
+        } else {
             intent = enemy.getName() + " is going to use a skill";
         }
-
         return intent;
     }
 }

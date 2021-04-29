@@ -29,8 +29,6 @@ public class Combat {
         if (damage < 0) { // prevent negative damage affecting calculations
             damage = 0;
         }
-
-
         // set status effects
         attacker.setStrength(attacker.getStrength() + card.getStrength());
         attacker.setDexterity(attacker.getDexterity() + card.getDexterity());
@@ -64,7 +62,7 @@ public class Combat {
 
     // CardUI
     public static void combatDisplay(int damage, int realAttack, int blockedDamage, int realBlock, GamePiece attacker, GamePiece defender, Card card) {
-        System.out.println("********************COMBAT************************");
+        System.out.println("************************COMBAT************************");
         // declare player uses card
         System.out.println(attacker.getName() + " pays " + card.getCost() + " AP and uses " + card.getName() + ".");
 
@@ -98,7 +96,7 @@ public class Combat {
             System.out.println(card.getName() + " applied " + card.getDexterity() + " points of dexterity");
         }
         if (card.getVulnerable() > 0) {
-            System.out.println(defender.getName() + " received " + card.getVulnerable() + " points of vulnerability");
+            System.out.println(defender.getName() + " received " + (card.getVulnerable()-1)   + " points of vulnerability");
         }
         if (card.getWeak() > 0) {
             System.out.println(defender.getName() + " received " + card.getWeak() + " points of weakness");
@@ -111,9 +109,7 @@ public class Combat {
         if (card.getDraw() > 0) {
             System.out.println(attacker.getName() + " drew " + card.getDraw() + " cards ");
         }
-
-
-        System.out.println("********************COMBAT************************");
+        System.out.println("************************COMBAT************************");
     }
 
 

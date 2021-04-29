@@ -64,7 +64,7 @@ public class TurnFlow {
                 // Show Discard
                 case "V", "v" -> deck.showDiscard();
                 // show exhaust
-                case "O", "o" -> deck.showExhaust();
+                case "X", "x" -> deck.showExhaust();
                 // EndTurn
                 case "E", "e" -> {
                     endTurn(deck, player, enemy, enemyDeck);

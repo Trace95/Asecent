@@ -91,14 +91,14 @@ public class Deck {
     }
 
     // ExhaustPile
-    public void exhaustCard(int cardPosition){
+    public void exhaustCard(int cardPosition) {
         if (cardPosition > -1) {
             exhaustPile.add(handPile.get(cardPosition)); // add card into exhaust pile
             handPile.remove(cardPosition);// remove card from hand
         }
     }
 
-    public void showExhaust(){
+    public void showExhaust() {
         int position = 1;
         System.out.println("*********************EXHAUST PILE*********************");
         if (getExhaustPile().size() == 0) {
@@ -113,6 +113,12 @@ public class Deck {
         System.out.println("*********************EXHAUST PILE*********************");
     }
 
+    public int getExhaustPileCount(){
+        if (exhaustPile == null){
+            return 0;
+        }
+        return exhaustPile.size();
+    }
 
 
     //DeckPile
@@ -149,11 +155,11 @@ public class Deck {
     }
 
     public void showDeckStatusUI(int actionPoints) {
-        System.out.println("ActionPoints: " + actionPoints + " Deck: " + getDrawPile().size() + "   Discard: " + getDiscardPileCount());
+        System.out.println("ActionPoints: " + actionPoints + " Deck: " + getDrawPile().size() + "   Discard: " + getDiscardPileCount() + " Exhaust: " + getExhaustPileCount());
     }
 
     public static void showNonCombatOptions() {
-        System.out.println("End turn: E Quit: Q View Deck: D View Discard: V");
+        System.out.println("End turn: E Quit: Q View Deck: D View Discard: V View Exhaust: X");
     }
 
     private ArrayList<Card> sortDeckByCardName(ArrayList<Card> deck) {
@@ -268,7 +274,7 @@ public class Deck {
                 int dexterity = scanner.nextInt();
                 boolean exhaust = scanner.nextBoolean();
 
-                
+
                 Card card = new Card(name, cost, type, attack, block, effect, hits, draw, goldCost, poison, vulnerable, weak, parry, exhaust, strength, dexterity);
                 deck.drawPile.add(card);
                 cardCount++;

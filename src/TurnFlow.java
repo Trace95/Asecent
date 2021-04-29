@@ -62,7 +62,7 @@ public class TurnFlow {
                 // Show Deck
                 case "D", "d" -> deck.showDrawPile(deck.getDrawPile());
                 // Show Discard
-                case "V", "v" -> deck.showDiscard();
+                case "Z", "z" -> deck.showDiscard();
                 // show exhaust
                 case "X", "x" -> deck.showExhaust();
                 // EndTurn

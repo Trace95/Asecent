@@ -68,14 +68,14 @@ public class Shop {
 
 
             int count = 1;
-            System.out.println("*************************DECK*************************");
+            System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
             System.out.println("You may only remove one card per shop visit \n");
             for (Card card : deck.getDrawPile()) {
                 System.out.println(count + "." + card.getCardDisplay() + "\n");
                 count++;
             }
             System.out.println("B = Back to shop");
-            System.out.println("*************************DECK*************************");
+            System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
             String input = Game.getInput();
             if (input.equals("b") || input.equals("B")) {
                 loop = false;

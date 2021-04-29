@@ -101,7 +101,7 @@ public class Enemy extends GamePiece {
         Card card = deck.getHandPile().get(0);
 
         if (card.getType().equals("Attack") && card.getHits() <= 1 && enemy.getStrength() == 0) {
-            intent += enemy.getName() + " is attacking for " + card.getAttack() + " damage";
+            intent += enemy.getName() + " is attacking for " + (card.getAttack()) + " damage";
         } else if (card.getType().equals("Attack") && card.getHits() <= 1 && enemy.getStrength() != 0) {
             intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage";
         } else if (card.getType().equals("Attack") && card.getHits() > 0) {

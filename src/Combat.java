@@ -62,7 +62,7 @@ public class Combat {
 
     // CardUI
     public static void combatDisplay(int damage, int realAttack, int blockedDamage, int realBlock, GamePiece attacker, GamePiece defender, Card card) {
-        System.out.println("************************COMBAT************************");
+        System.out.println("************************\uD835\uDC02\uD835\uDC0E\uD835\uDC0C\uD835\uDC01\uD835\uDC00\uD835\uDC13************************"); // combat
         // declare player uses card
         System.out.println(attacker.getName() + " pays " + card.getCost() + " AP and uses " + card.getName() + ".");
 
@@ -109,7 +109,7 @@ public class Combat {
         if (card.getDraw() > 0) {
             System.out.println(attacker.getName() + " drew " + card.getDraw() + " cards ");
         }
-        System.out.println("************************COMBAT************************");
+        System.out.println("************************\uD835\uDC02\uD835\uDC0E\uD835\uDC0C\uD835\uDC01\uD835\uDC00\uD835\uDC13************************");
     }
 
 

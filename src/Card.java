@@ -39,10 +39,12 @@ public class Card {
     }
 
     public String getCardDisplay() {
-        String cardDisplay = name + " (Type:" + type + ")(Cost: " + cost + ") \n" + "Effect: " + effect ;
+        String cardDisplay = name + " (Type:" + type + ")(Cost: " + cost + ")";
         if(exhaust){
-            cardDisplay = cardDisplay + ". Exhausts";
+            cardDisplay +="(Exhausts)";
         }
+        cardDisplay += "\n" + "Effect: " + effect ;
+
 
         return cardDisplay;
     }

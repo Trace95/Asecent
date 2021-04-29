@@ -43,20 +43,20 @@ public class Deck {
 
     public void showHand() {
         int position = 1; // position in hand
-        System.out.println("*************************HAND*************************");
+        System.out.println("*************************\uD835\uDC07\uD835\uDC00\uD835\uDC0D\uD835\uDC03*************************");
         for (Card card : handPile) {
             System.out.println(position + "." + card.getCardDisplay() + "\n");
             position++;
         }
         showNonCombatOptions();
-        System.out.println("*************************HAND*************************");
+        System.out.println("*************************\uD835\uDC07\uD835\uDC00\uD835\uDC0D\uD835\uDC03*************************");
     }
 
     //DiscardPile
     public void showDiscard() {
         int position = 1;
 
-        System.out.println("*********************DISCARD PILE*********************");
+        System.out.println("*********************\uD835\uDC03\uD835\uDC08\uD835\uDC12\uD835\uDC02\uD835\uDC00\uD835\uDC11\uD835\uDC03 \uD835\uDC0F\uD835\uDC08\uD835\uDC0B\uD835\uDC04*********************");
         if (getDiscardPileCount() == 0) {
             System.out.println("                        <EMPTY>");
         } else {
@@ -66,7 +66,7 @@ public class Deck {
                 position++;
             }
         }
-        System.out.println("*********************DISCARD PILE*********************");
+        System.out.println("*********************\uD835\uDC03\uD835\uDC08\uD835\uDC12\uD835\uDC02\uD835\uDC00\uD835\uDC11\uD835\uDC03 \uD835\uDC0F\uD835\uDC08\uD835\uDC0B\uD835\uDC04*********************");
     }
 
     public void discard(int cardPosition) {
@@ -100,7 +100,7 @@ public class Deck {
 
     public void showExhaust() {
         int position = 1;
-        System.out.println("*********************EXHAUST PILE*********************");
+        System.out.println("*********************\uD835\uDC04\uD835\uDC17\uD835\uDC07\uD835\uDC00\uD835\uDC14\uD835\uDC12\uD835\uDC13 \uD835\uDC0F\uD835\uDC08\uD835\uDC0B\uD835\uDC04*********************");
         if (getExhaustPile().size() == 0) {
             System.out.println("                        <EMPTY>");
         } else {
@@ -110,7 +110,7 @@ public class Deck {
                 position++;
             }
         }
-        System.out.println("*********************EXHAUST PILE*********************");
+        System.out.println("*********************\uD835\uDC04\uD835\uDC17\uD835\uDC07\uD835\uDC00\uD835\uDC14\uD835\uDC12\uD835\uDC13 \uD835\uDC0F\uD835\uDC08\uD835\uDC0B\uD835\uDC04*********************");
     }
 
     public int getExhaustPileCount(){
@@ -141,7 +141,7 @@ public class Deck {
         int position = 1;
         // have to sort this into alphabetical order so user cant see whats coming next in their deck
         ArrayList<Card> sortedDeck = sortDeckByCardName(deck);
-        System.out.println("*************************DECK*************************");
+        System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
         for (int i = 0; i < sortedDeck.size(); i++) {
             Card card = sortedDeck.get(i);
             if (position == sortedDeck.size()) {
@@ -151,7 +151,7 @@ public class Deck {
                 position++;
             }
         }
-        System.out.println("*************************DECK*************************");
+        System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
     }
 
     public void showDeckStatusUI(int actionPoints) {
@@ -159,7 +159,7 @@ public class Deck {
     }
 
     public static void showNonCombatOptions() {
-        System.out.println("End turn: E Quit: Q View Deck: D View Discard: V View Exhaust: X");
+        System.out.println("End turn: E Quit: Q Deck: D Discard: Z Exhaust: X");
     }
 
     private ArrayList<Card> sortDeckByCardName(ArrayList<Card> deck) {

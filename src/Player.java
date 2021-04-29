@@ -26,6 +26,7 @@ public class Player extends GamePiece{
         this.baseActionPoints = actionPoints;
         this.baseHandSize = handSize;
         this.gold = 100;
+        this.isPlayer = true;
     }
     // Load saved player constructor
     public Player(String name, int healthPoints, int baseHealthPoints, int playerLevel,int gold) {
@@ -41,6 +42,7 @@ public class Player extends GamePiece{
         this.baseHandSize = handSize;
         this.playerLevel = playerLevel;
         this.gold = gold;
+        this.isPlayer = true;
 
     }
 

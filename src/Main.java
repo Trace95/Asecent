@@ -4,8 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         printGraphic();
-        System.out.println("1.Play Game \n2.Edit Cards and Decks");
         while(true){
+            System.out.println("1.Play Game \n2.Edit Cards and Decks");
             switch (Game.getInput()){
                 case "1" -> Game.loadGameMenu();
                 case "2" -> DeckBuilder.deckBuilderMenu();

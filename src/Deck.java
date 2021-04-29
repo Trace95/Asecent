@@ -159,7 +159,7 @@ public class Deck {
         System.out.println("End turn: E Quit: Q Deck: D Discard: Z Exhaust: X");
     }
 
-    private ArrayList<Card> sortDeckByCardName(ArrayList<Card> deck) {
+    public ArrayList<Card> sortDeckByCardName(ArrayList<Card> deck) {
         Comparator<Card> cardNameComparator = Comparator.comparing(Card::getName);
         deck.sort(cardNameComparator);
         return deck;

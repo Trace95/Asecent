@@ -14,6 +14,7 @@ public abstract class GamePiece {
      int handSize;
      int baseHandSize;
      int parry;
+     boolean isPlayer;
 
      public void setName(String name) {
           this.name = name;
@@ -133,6 +134,10 @@ public abstract class GamePiece {
 
      public void setActionPoints(int actionPoints) {
           this.actionPoints = actionPoints;
+     }
+
+     public boolean isPlayer() {
+          return isPlayer;
      }
 
      public String showGamePieceStats() {

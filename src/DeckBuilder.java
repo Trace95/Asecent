@@ -1,22 +1,28 @@
 public class DeckBuilder {
 
-    public static void deckBuilderMenu(){
+    public static void deckBuilderMenu() {
 
-        while(true){
-            System.out.println("1.Add a new card to the CardLibrary");
+
+        boolean loop = true;
+        while (loop) {
+            System.out.println("1.Edit the CardLibrary");
             System.out.println("2.Create a new Deck");
-            switch (Game.getInput()){
-                case "1" -> addCardToCardLibrary();
-                case "2" -> buildDeckFromCardLibrary();
+            System.out.println("3.EXIT");
+
+            switch (Game.getInput()) {
+                case "1" -> editCardLibrary();
+                case "2" -> buildDeck();
+                case "3", "q", "Q" -> loop = false;
                 default -> System.out.println("Please enter a valid input");
             }
+
         }
+
 
     }
 
 
-
-    public static void buildDeckFromCardLibrary(){
+    private static void buildDeck() {
         Deck newDeck = new Deck();
         System.out.println("Enter deck name");
         String name = Game.getInput();
@@ -35,36 +41,55 @@ public class DeckBuilder {
         while (loop) {
             String input = Game.getInput();
 
-            if(input.equals("s") || input.equals("S")){
+            if (input.equals("s") || input.equals("S")) {
                 System.out.println("Deck saved");
-                Deck.saveDeck(newDeck,name);
+                Deck.saveDeck(newDeck, name);
 
-            }else if(input.equals("q") || input.equals("Q")){
+            } else if (input.equals("q") || input.equals("Q")) {
                 loop = false;
-            }else if(Integer.parseInt(input) <= cardLibrary.getDrawPile().size() || Integer.parseInt(input) >= cardLibrary.getDrawPile().size() ){
+            } else if (Integer.parseInt(input) <= cardLibrary.getDrawPile().size() || Integer.parseInt(input) >= cardLibrary.getDrawPile().size()) {
                 int intInput = Integer.parseInt(input) - 1; // makes input correspond with array element
                 newDeck.getDrawPile().add(cardLibrary.getDrawPile().get(intInput));
                 System.out.println(cardLibrary.getDrawPile().get(intInput).getName() + " was added to the deck");
-            }else{
+            } else {
                 System.out.println("Please enter a valid input");
             }
         }
 
 
-
-
-        Deck.saveDeck(newDeck,name);
+        Deck.saveDeck(newDeck, name);
 
     }
 
-    public static void addCardToCardLibrary(){
+    private static void editCardLibrary() {
+        Deck cardLibrary = Deck.makeCardLibrary();
+        
+
+        boolean loop = true;
+        while (loop) {
+
+            System.out.println("1.Create new card\n2.Remove card\n3.Quit");
+
+            switch (Game.getInput()) {
+                case "1" -> addCardToCardLibrary();
+                case "2" -> deleteCard(cardLibrary);
+                case "3" -> loop = false;
+                default -> System.out.println("Please enter a valid input");
+            }
+
+        }
+    }
+
+
+    private static void addCardToCardLibrary() {
         Card card = createCard();
         Deck cardLibrary = Deck.makeCardLibrary();
         cardLibrary.getDrawPile().add(card);
-        Deck.saveDeck(cardLibrary,"CardLibrary");
+        Deck.saveDeck(cardLibrary, "CardLibrary");
+
     }
 
-    public static Card createCard(){
+    private static Card createCard() {
         String name;
         int cost;
         String type = null;
@@ -83,19 +108,18 @@ public class DeckBuilder {
         int dexterity;
 
 
-
         System.out.println("Please enter card name");
         name = Game.getInput();
 
         boolean loop = true;
-        while(loop){
+        while (loop) {
             System.out.println("Please enter card type:\n1.Attack\n2.Skill");
-            switch (Game.getInput()){
+            switch (Game.getInput()) {
                 case "1" -> {
                     type = "Attack";
                     loop = false;
                 }
-                case "2"-> {
+                case "2" -> {
                     type = "Skill";
                     loop = false;
 
@@ -106,10 +130,10 @@ public class DeckBuilder {
         }
 
 
-        if(type.equals("Attack")){
+        if (type.equals("Attack")) {
             System.out.println("Please enter card attack");
             attack = Integer.parseInt(Game.getInput());
-        }else {
+        } else {
             attack = 0;
         }
 
@@ -140,9 +164,9 @@ public class DeckBuilder {
 
 
         loop = true;
-        while(loop){
+        while (loop) {
             System.out.println("Please enter card exhaust. Y OR N");
-            switch (Game.getInput()){
+            switch (Game.getInput()) {
                 case "Y", "y" -> {
                     exhaust = true;
                     loop = false;
@@ -157,7 +181,7 @@ public class DeckBuilder {
         }
 
         System.out.println("Please enter card strength");
-        strength= Integer.parseInt(Game.getInput());
+        strength = Integer.parseInt(Game.getInput());
         System.out.println("Please enter card dexterity");
         dexterity = Integer.parseInt(Game.getInput());
 
@@ -172,12 +196,42 @@ public class DeckBuilder {
         System.out.println(card.getCardDisplay());
         System.out.println("Save card? \n 1.Yes\n 2.No");
 
-        if(Game.getInput().equals("1")){
+        if (Game.getInput().equals("1")) {
             return card;
-        }else {
+        } else {
             System.out.println("invalid input");
             return createCard();
         }
     }
 
-}
+    private static void deleteCard(Deck cardLibrary) {
+        int count = 1;
+        boolean loop = true;
+        while (loop) {
+            count = 1;
+            for (Card card : cardLibrary.getDrawPile()) {
+                System.out.println(count + "." + card.getCardDisplay() + "\n");
+                count++;
+            }
+            System.out.println("Q = to leave     # = remove card ");
+
+
+                String input = Game.getInput();
+
+                if (input.equals("q") || input.equals("Q")) {
+                    loop = false;
+                } else if (Integer.parseInt(input) <= cardLibrary.getDrawPile().size() || Integer.parseInt(input) >= cardLibrary.getDrawPile().size()) {
+                    int intInput = Integer.parseInt(input) - 1; // makes input correspond with array element
+                    System.out.println(cardLibrary.getDrawPile().get(intInput).getName() + " was removed from the deck");
+                    cardLibrary.getDrawPile().remove(cardLibrary.getDrawPile().get(intInput));
+                } else {
+                    System.out.println("Please enter a valid input");
+                }
+            }
+            Deck.saveDeck(cardLibrary, "CardLibrary");
+
+        }
+
+    }
+
+

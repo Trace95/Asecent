@@ -10,6 +10,7 @@ public class Enemy extends GamePiece {
         this.block = 0;
         this.strength = 0;
         this.dexterity = 0;
+        this.isPlayer = false;
     }
 
     // Custom methods

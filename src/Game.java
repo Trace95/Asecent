@@ -22,7 +22,7 @@ public class Game {
 
         if (loadSave.equals("1")) {
             player = Player.loadPlayer(); // loads player
-            deck = Deck.loadDeck();      // loads deck
+            deck = Deck.loadDeck("PlayerDeck");      // loads deck
         } else if (loadSave.equals("2")) {
             player = Player.makePlayer(); // makes new player
             deck = Deck.makeBaseDeck();  // makes new deck
@@ -35,7 +35,8 @@ public class Game {
 
     public static void gameStart(Player player, Deck deck) {
         Enemy enemy = Enemy.makeEnemy(player.getPlayerLevel());
-        TurnFlow.combat(player, enemy, deck); // starts fighting sim
+        Deck enemyDeck = Deck.makeEnemyDeck(enemy);
+        TurnFlow.combat(player, enemy, deck,enemyDeck); // starts fighting sim
         continueMenu(player, deck);
     }
 

@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -113,8 +110,8 @@ public class Deck {
         System.out.println("*********************\uD835\uDC04\uD835\uDC17\uD835\uDC07\uD835\uDC00\uD835\uDC14\uD835\uDC12\uD835\uDC13 \uD835\uDC0F\uD835\uDC08\uD835\uDC0B\uD835\uDC04*********************");
     }
 
-    public int getExhaustPileCount(){
-        if (exhaustPile == null){
+    public int getExhaustPileCount() {
+        if (exhaustPile == null) {
             return 0;
         }
         return exhaustPile.size();
@@ -207,6 +204,7 @@ public class Deck {
 
     public static Deck makeCardLibrary() {
         Deck cardLibrary = new Deck();
+        //loadDeck("CardLibrary");
         Card card = new Card("test", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
         Card card1 = new Card("test1", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
         Card card2 = new Card("test2", 1, "Attack", 5, 0, "Deal 5 damage 2 times", 2, 0, 0, 0, 0, 0, 0, false, 0, 0);
@@ -227,10 +225,16 @@ public class Deck {
 
     }
 
-    public static Deck makeEnemyDeck() {
+    public static Deck makeEnemyDeck(Enemy enemy) {
         Deck deck = new Deck();
         // Make sure to make vulnerable values 1 higher than what they should be
 
+        File file = new File("D:/Programming/JAVA/Gladiator 0.7/" + enemy.getName() + ".txt");
+        if (file.exists()) {
+            return loadDeck(enemy.getName());
+        }
+
+        //Default implementation
         Card heavyStrike = new Card("Heavy strike", 0, "Attack", 12, 0, "Deals 12 damage and applies 1 point of vulnerable", 1, 0, 0, 0, 2, 0, 0, false, 0, 0);
         Card sting = new Card("Sting", 0, "Attack", 5, 0, "Deals 5 damage and applies 5 point of poison", 1, 0, 0, 5, 0, 0, 0, false, 0, 0);
         Card leer = new Card("Leer", 0, "Skill", 0, 10, "Gain 10 block and apply 1 weak and 1 vulnerable", 0, 0, 0, 0, 2, 1, 0, false, 0, 0);
@@ -250,11 +254,11 @@ public class Deck {
         return deck;
     }
 
-    public static Deck loadDeck() {
+    public static Deck loadDeck(String deckName) {
         Deck deck = new Deck();
         int cardCount = 0;
         try {
-            Scanner scanner = new Scanner(new FileReader("PlayerDeck.txt"));
+            Scanner scanner = new Scanner(new FileReader(deckName + ".txt"));
             scanner.useDelimiter(",");
             while (scanner.hasNextLine()) {
                 String name = scanner.next();

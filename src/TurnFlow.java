@@ -1,7 +1,7 @@
 
 public class TurnFlow {
 
-    public static void combat(Player player, Enemy enemy, Deck deck) {
+    public static void combat(Player player, Enemy enemy, Deck deck, Deck enemyDeck) {
         // shuffle the deck
         deck.shuffle();
         // make turn counter
@@ -9,7 +9,6 @@ public class TurnFlow {
         //Print out Player name vs Enemy name
         System.out.println(player.getName() + " Versus " + enemy.getName());
         // make enemy deck
-        Deck enemyDeck = Deck.makeEnemyDeck();
 
         while (enemy.getHealthPoints() > 0) {
             System.out.println("\nTurn: " + turn + " Level: " + player.getPlayerLevel());

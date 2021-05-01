@@ -14,7 +14,7 @@ public class Main {
         }
     }
     public static void exitMessage() {
-        System.out.println("GameOver");
+        printLoseGraphic();
         Game.deleteSave();
     }
 
@@ -28,6 +28,22 @@ public class Main {
         System.out.println("                  Combat Deck builder\n");
 //http://patorjk.com/software/taag/#p=display&h=0&v=1&f=ANSI%20Shadow&t=Asecent%20
     }
+
+    public static void printLoseGraphic(){
+        System.out.println("" +
+                " ██████╗  █████╗ ███╗   ███╗███████╗ ██████╗ ██╗   ██╗███████╗██████╗ \n" +
+                "██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔═══██╗██║   ██║██╔════╝██╔══██╗\n" +
+                "██║  ███╗███████║██╔████╔██║█████╗  ██║   ██║██║   ██║█████╗  ██████╔╝\n" +
+                "██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗\n" +
+                "╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗╚██████╔╝ ╚████╔╝ ███████╗██║  ██║\n" +
+                " ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝\n" +
+                "                                                                      ");
+    }
+
+
+
+
+
 }
 
 

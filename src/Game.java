@@ -2,13 +2,14 @@ import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Game {
-
-
     private static Scanner scanner = new Scanner(System.in);
+    private static final String playerSaveLocation = "D:/Programming/JAVA/Gladiator 0.7/PlayerSave.txt";
+    private static final String playerDeckLocation = "D:/Programming/JAVA/Gladiator 0.7/PlayerDeck.txt";
 
     public static void loadGameMenu() {
-        File file = new File("D:/Programming/JAVA/Gladiator 0.7/PlayerSave.txt");
+        File file = new File(playerSaveLocation);
         String loadSave;
         if (file.exists()) {
             System.out.println("Continue previous save?\n1.Yes  2.No");
@@ -41,7 +42,7 @@ public class Game {
     }
 
     private static void continueMenu(Player player, Deck deck) {
-        postMatchFlow(deck, player);
+        postCombatFlow(deck, player);
         System.out.println("1.Continue");
         System.out.println("2.Save & Quit");
 
@@ -66,7 +67,7 @@ public class Game {
 
     }
 
-    private static void postMatchFlow(Deck deck, Player player) {
+    private static void postCombatFlow(Deck deck, Player player) {
         rewardMenu(deck);
         Shop.shopMenu(player, deck);
     }
@@ -119,8 +120,8 @@ public class Game {
     }
 
     public static void deleteSave() {
-        File playerSave = new File("D:/Programming/JAVA/Gladiator 0.7/PlayerSave.txt");
-        File playerDeck = new File("D:/Programming/JAVA/Gladiator 0.7/PlayerDeck.txt");
+        File playerSave = new File(playerSaveLocation);
+        File playerDeck = new File(playerDeckLocation);
         if (playerSave.exists()) {
             playerSave.delete();
             System.out.println("Player deleted");

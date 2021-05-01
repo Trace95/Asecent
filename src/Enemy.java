@@ -96,17 +96,36 @@ public class Enemy extends GamePiece {
         this.dexterity = dexterity;
     }
 
-    public String getIntent(Enemy enemy, Deck deck) {
+    public String getIntent(Enemy enemy, Deck deck, Player player) {
         String intent = "";
         deck.drawHand(1);
         Card card = deck.getHandPile().get(0);
+        Boolean playerVulnerable = false;
+        Boolean isWeak = false;
 
-        if (card.getType().equals("Attack") && card.getHits() <= 1 && enemy.getStrength() == 0) {
-            intent += enemy.getName() + " is attacking for " + (card.getAttack()) + " damage";
-        } else if (card.getType().equals("Attack") && card.getHits() <= 1 && enemy.getStrength() != 0) {
-            intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage";
-        } else if (card.getType().equals("Attack") && card.getHits() > 0) {
-            intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage "+ card.getHits() + " times";
+        if (player.getVulnerable() > 0) {
+            playerVulnerable = true;
+        }
+        if (enemy.getWeak() > 0) {
+            isWeak = true;
+        }
+
+        int cardDamage = card.getAttack();
+        int attack = cardDamage + enemy.getStrength();
+        int damage = attack * card.getHits();
+
+        if(isWeak){
+            damage = (int) Math.round(damage * 0.75);
+        }
+
+        if (playerVulnerable){
+            damage = (int) Math.round(damage * 1.25);
+        }
+
+        if (card.getType().equals("Attack") && card.getHits() <= 1) {
+            intent += enemy.getName() + " is attacking for " + damage + " damage";
+        } else if (card.getType().equals("Attack") && card.getHits() > 1) {
+            intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage " + card.getHits() + " times";
         } else {
             intent = enemy.getName() + " is going to use a skill";
         }

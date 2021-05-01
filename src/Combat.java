@@ -64,7 +64,12 @@ public class Combat {
     public static void combatDisplay(int damage, int realAttack, int blockedDamage, int realBlock, GamePiece attacker, GamePiece defender, Card card) {
         System.out.println("************************\uD835\uDC02\uD835\uDC0E\uD835\uDC0C\uD835\uDC01\uD835\uDC00\uD835\uDC13************************"); // combat
         // declare player uses card
-        System.out.println(attacker.getName() + " pays " + card.getCost() + " AP and uses " + card.getName() + ".");
+
+        if(attacker.isPlayer){
+            System.out.println(attacker.getName() + " pays " + card.getCost() + " AP and uses " + card.getName() + ".");
+        }else{
+            System.out.println(attacker.getName() + " uses " + card.getName() + ".");
+        }
 
         if (card.getAttack() > 0 && card.getHits() <= 1) { // make sure the card has an base card.getAttack value above 0.
             System.out.println(card.getName() + " deals " + realAttack + " damage. ");

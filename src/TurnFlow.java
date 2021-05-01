@@ -17,7 +17,7 @@ public class TurnFlow {
             System.out.print(enemy.showGamePieceStats() + " ");
             System.out.println(player.showGamePieceStats());
             // Show enemy intent
-            System.out.println(enemy.getIntent(enemy, enemyDeck));
+            System.out.println(enemy.getIntent(enemy, enemyDeck,player));
             // Make a hand of cards
             deck.drawHand(player.getHandSize());
             // Show hand of cards
@@ -59,7 +59,7 @@ public class TurnFlow {
                     System.exit(0);
                 }
                 // Show Deck
-                case "D", "d" -> deck.showDrawPile(deck.getDrawPile());
+                case "D", "d" -> deck.showDrawPile(deck);
                 // Show Discard
                 case "Z", "z" -> deck.showDiscard();
                 // show exhaust
@@ -98,7 +98,7 @@ public class TurnFlow {
                             System.out.print(enemy.showGamePieceStats() + " ");
                             System.out.println(player.showGamePieceStats());
                             // show enemy intent
-                            System.out.println(enemy.getIntent(enemy, enemyDeck));
+                            System.out.println(enemy.getIntent(enemy, enemyDeck,player));
 
                             deck.showHand();
                             deck.showDeckStatusUI(player.getActionPoints());

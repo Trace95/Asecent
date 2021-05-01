@@ -134,10 +134,10 @@ public class Deck {
         Collections.shuffle(drawPile);
     }
 
-    public void showDrawPile(ArrayList<Card> deck) {
+    public void showDrawPile(Deck deck) {
         int position = 1;
         // have to sort this into alphabetical order so user cant see whats coming next in their deck
-        ArrayList<Card> sortedDeck = sortDeckByCardName(deck);
+        ArrayList<Card> sortedDeck = sortDeckByCardName(deck.handPile);
         System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
         for (int i = 0; i < sortedDeck.size(); i++) {
             Card card = sortedDeck.get(i);

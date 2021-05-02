@@ -55,7 +55,7 @@ public class TurnFlow {
             switch (input) {
                 // Quit
                 case "Q", "q" -> {
-                    Main.exitMessage();
+                    Main.loseMessage();
                     System.exit(0);
                 }
                 // Show Deck

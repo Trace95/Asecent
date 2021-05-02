@@ -205,6 +205,7 @@ public class Deck {
     public static Deck makeCardLibrary() {
         Deck cardLibrary = new Deck();
         cardLibrary =loadDeck("CardLibrary");
+        cardLibrary.sortDeckByCardName(cardLibrary.getDrawPile());
         return cardLibrary;
 
     }

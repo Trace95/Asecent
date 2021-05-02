@@ -7,7 +7,7 @@ public class DeckBuilder {
         while (loop) {
             System.out.println("1.Edit the CardLibrary");
             System.out.println("2.Create a new Deck");
-            System.out.println("3.EXIT");
+            System.out.println("3.Quit");
 
             switch (Game.getInput()) {
                 case "1" -> editCardLibrary();

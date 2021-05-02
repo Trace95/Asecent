@@ -127,7 +127,7 @@ public class Enemy extends GamePiece {
         } else if (card.getType().equals("Attack") && card.getHits() > 1) {
             intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage " + card.getHits() + " times";
         } else {
-            intent = enemy.getName() + " is going to use a skill";
+            intent = enemy.getName() + " is going to use " + card.getName();
         }
         return intent;
     }

@@ -152,7 +152,7 @@ public abstract class GamePiece {
           String strString = "[STR: " + strength + "]";
           String dexString = "[DEX " + dexterity + "]";
           String poisonString = "[POISON " + +poison + "]";
-          String vulnerableString = "[VULNERABLE " + (vulnerable -1) + "]";
+          String vulnerableString = "[VULNERABLE " + vulnerable + "]";
           String weakString = "[WEAK " + weak + "]";
           String parryString = "[PARRY " + parry + "]";
 
@@ -166,7 +166,7 @@ public abstract class GamePiece {
           if (dexterity != 0) {
                status += dexString;
           }
-          if (vulnerable != 0 && vulnerable != 1 ) {
+          if (vulnerable != 0) {
                status += vulnerableString;
           }
           if (weak != 0) {

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -101,8 +102,7 @@ public class Deck {
         if (getExhaustPile().size() == 0) {
             System.out.println("                        <EMPTY>");
         } else {
-            for (int i = 0; i < exhaustPile.size(); i++) {
-                Card card = exhaustPile.get(i);
+            for (Card card : exhaustPile) {
                 System.out.println(position + "." + card.getCardDisplay() + "\n");
                 position++;
             }
@@ -169,15 +169,15 @@ public class Deck {
     // Deck loading & Saving
     public static Deck makeBaseDeck() { //  makes base deck
         Deck deck = new Deck();
-        Card strike = new Card("Strike", 1, "Attack", 6, 0, "Deal 6 damage.", 1, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card defend = new Card("Defend", 1, "Skill", 0, 5, "Block 5 damage.", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card neutralize = new Card("Neutralize", 0, "Attack", 3, 0, "Deal 3 damage. Apply 1 Weak", 1, 0, 45, 0, 0, 1, 0, true, 0, 0);
-        Card backFlip = new Card("Backflip", 1, "Skill", 0, 5, "Gain 5 block. Draw 2 cards", 0, 2, 66, 0, 0, 0, 0, false, 0, 0);
-        Card deadlyPoison = new Card("Deadly Poison", 1, "Skill", 0, 0, "Apply 5 poison", 0, 0, 80, 5, 0, 0, 0, false, 0, 0);
-        Card deflect = new Card("Deflect", 0, "Skill", 0, 4, "Gain 4 block.", 0, 0, 45, 0, 0, 0, 0, false, 0, 0);
-        Card poisonStab = new Card("Poison Stab", 1, "Attack", 6, 0, "Deal 6 damage. Apply 3 poison.", 1, 0, 70, 3, 0, 0, 0, false, 0, 0);
-        Card dash = new Card("Dash", 2, "Attack", 6, 6, "Deal 6 damage. Gain 6 block.", 1, 0, 0, 0, 0, 0, 0, true, 0, 0);
-        Card powerUp = new Card("Power-Up", 1, "Skill", 0, 0, "Gain 5 strength", 0, 0, 50, 0, 0, 0, 0, true, 5, 0);
+        Card strike = new Card("Strike", 1, CardType.Attack, 6, 0, "Deal 6 damage.", 1, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card defend = new Card("Defend", 1, CardType.Skill, 0, 5, "Block 5 damage.", 0, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card neutralize = new Card("Neutralize", 0, CardType.Attack, 3, 0, "Deal 3 damage. Apply 1 Weak", 1, 0, 45, 0, 0, 1, 0, true, 0, 0);
+        Card backFlip = new Card("Backflip", 1, CardType.Skill, 0, 5, "Gain 5 block. Draw 2 cards", 0, 2, 66, 0, 0, 0, 0, false, 0, 0);
+        Card deadlyPoison = new Card("Deadly Poison", 1, CardType.Skill, 0, 0, "Apply 5 poison", 0, 0, 80, 5, 0, 0, 0, false, 0, 0);
+        Card deflect = new Card("Deflect", 0, CardType.Skill, 0, 4, "Gain 4 block.", 0, 0, 45, 0, 0, 0, 0, false, 0, 0);
+        Card poisonStab = new Card("Poison Stab", 1, CardType.Attack, 6, 0, "Deal 6 damage. Apply 3 poison.", 1, 0, 70, 3, 0, 0, 0, false, 0, 0);
+        Card dash = new Card("Dash", 2, CardType.Attack, 6, 6, "Deal 6 damage. Gain 6 block.", 1, 0, 0, 0, 0, 0, 0, true, 0, 0);
+        Card powerUp = new Card("Power-Up", 1, CardType.Skill, 0, 0, "Gain 5 strength", 0, 0, 50, 0, 0, 0, 0, true, 5, 0);
 
 
         deck.drawPile.add(strike);
@@ -203,7 +203,7 @@ public class Deck {
     }
 
     public static Deck makeCardLibrary() {
-        Deck cardLibrary = new Deck();
+        Deck cardLibrary;
         cardLibrary =loadDeck("CardLibrary");
         cardLibrary.sortDeckByCardName(cardLibrary.getDrawPile());
         return cardLibrary;
@@ -220,12 +220,12 @@ public class Deck {
         }
 
         //Default implementation
-        Card heavyStrike = new Card("Heavy strike", 0, "Attack", 12, 0, "Deals 12 damage and applies 1 point of vulnerable", 1, 0, 0, 0, 2, 0, 0, false, 0, 0);
-        Card sting = new Card("Sting", 0, "Attack", 5, 0, "Deals 5 damage and applies 5 point of poison", 1, 0, 0, 5, 0, 0, 0, false, 0, 0);
-        Card leer = new Card("Leer", 0, "Skill", 0, 10, "Gain 10 block and apply 1 weak and 1 vulnerable", 0, 0, 0, 0, 2, 1, 0, false, 0, 0);
-        Card furySwipes = new Card("Fury Swipes", 0, "Attack", 3, 0, "deals 3 damage 5 times", 5, 0, 0, 0, 0, 0, 0, false, 0, 0);
-        Card enrage = new Card("Enrage", 0, "Skill", 0, 0, "Gains 1 parry and gains 3 strength", 5, 0, 0, 0, 0, 0, 0, false, 3, 0);
-        Card defenciveStance = new Card("Defencive Stance", 0, "Skill", 0, 0, "Gains 1 parry, 5 block and 3 dexterity", 0, 0, 0, 0, 0, 0, 1, false, 0, 3);
+        Card heavyStrike = new Card("Heavy strike", 0, CardType.Attack, 12, 0, "Deals 12 damage and applies 1 point of vulnerable", 1, 0, 0, 0, 1, 0, 0, false, 0, 0);
+        Card sting = new Card("Sting", 0, CardType.Attack, 5, 0, "Deals 5 damage and applies 5 point of poison", 1, 0, 0, 5, 0, 0, 0, false, 0, 0);
+        Card leer = new Card("Leer", 0, CardType.Skill, 0, 10, "Gain 10 block and apply 1 weak and 1 vulnerable", 0, 0, 0, 0, 1, 1, 0, false, 0, 0);
+        Card furySwipes = new Card("Fury Swipes", 0, CardType.Attack, 3, 0, "deals 3 damage 5 times", 5, 0, 0, 0, 0, 0, 0, false, 0, 0);
+        Card enrage = new Card("Enrage", 0, CardType.Skill, 0, 0, "Gains 1 parry and gains 3 strength", 5, 0, 0, 0, 0, 0, 0, false, 3, 0);
+        Card defenciveStance = new Card("Defencive Stance", 0, CardType.Skill, 0, 0, "Gains 1 parry, 5 block and 3 dexterity", 0, 0, 0, 0, 0, 0, 1, false, 0, 3);
         deck.drawPile.add(heavyStrike);
         deck.drawPile.add(sting);
         deck.drawPile.add(leer);
@@ -264,7 +264,7 @@ public class Deck {
                 boolean exhaust = scanner.nextBoolean();
 
 
-                Card card = new Card(name, cost, type, attack, block, effect, hits, draw, goldCost, poison, vulnerable, weak, parry, exhaust, strength, dexterity);
+                Card card = new Card(name, cost, CardType.valueOf(type), attack, block, effect, hits, draw, goldCost, poison, vulnerable, weak, parry, exhaust, strength, dexterity);
                 deck.drawPile.add(card);
                 cardCount++;
 

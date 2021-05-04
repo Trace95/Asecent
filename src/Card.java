@@ -1,7 +1,7 @@
 public class Card {
     private String name;
     private int cost;
-    private String type;
+    private CardType type;
     private int attack;
     private int block;
     private String effect;
@@ -19,7 +19,7 @@ public class Card {
     //Constructor
 
 
-    public Card(String name, int cost, String type, int attack, int block, String effect, int hits, int draw, int goldCost, int poison, int vulnerable, int weak, int parry, boolean exhaust, int strength, int dexterity) {
+    public Card(String name, int cost, CardType type, int attack, int block, String effect, int hits, int draw, int goldCost, int poison, int vulnerable, int weak, int parry, boolean exhaust, int strength, int dexterity) {
         this.name = name;
         this.cost = cost;
         this.type = type;
@@ -58,7 +58,7 @@ public class Card {
         return cost;
     }
 
-    public String getType() {
+    public CardType getType() {
         return type;
     }
 

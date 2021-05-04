@@ -4,32 +4,26 @@ import java.util.Scanner;
 
 
 public class Game {
-    private static Scanner scanner = new Scanner(System.in);
     private static final String playerSaveLocation = "D:/Programming/JAVA/Gladiator 0.7/PlayerSave.txt";
     private static final String playerDeckLocation = "D:/Programming/JAVA/Gladiator 0.7/PlayerDeck.txt";
 
     public static void loadGameMenu() {
         File file = new File(playerSaveLocation);
-        String loadSave;
+        int loadSave = 0;
         if (file.exists()) {
             System.out.println("Continue previous save?\n1.Yes  2.No");
-            loadSave = getInput();
-        } else {
-            loadSave = "2";
+            loadSave = getIntInput(1, 2);
         }
 
-        Player player = null;
-        Deck deck = null;
+        Player player;
+        Deck deck;
 
-        if (loadSave.equals("1")) {
+        if (loadSave == 1) {
             player = Player.loadPlayer(); // loads player
             deck = Deck.loadDeck("PlayerDeck");      // loads deck
-        } else if (loadSave.equals("2")) {
+        } else{
             player = Player.makePlayer(); // makes new player
             deck = Deck.makeBaseDeck();  // makes new deck
-        } else {
-            System.out.println("Please enter 1 or 2 \n");
-            loadGameMenu();
         }
         gameStart(player, deck);
     }
@@ -37,7 +31,7 @@ public class Game {
     public static void gameStart(Player player, Deck deck) {
         Enemy enemy = Enemy.makeEnemy(player.getPlayerLevel());
         Deck enemyDeck = Deck.makeEnemyDeck(enemy);
-        TurnFlow.combat(player, enemy, deck,enemyDeck); // starts fighting sim
+        TurnFlow.combat(player, enemy, deck, enemyDeck); // starts fighting sim
         continueMenu(player, deck);
     }
 
@@ -47,17 +41,13 @@ public class Game {
         System.out.println("2.Save & Quit");
 
         while (true) {
-            String input = getInput();
-            switch (input) {
-                case "1" -> {
-                    gameStart(player, deck);
-                    break;
-                }
-                case "2" -> {
+
+            switch (getIntInput(1, 2)) {
+                case 1 -> gameStart(player, deck);
+                case 2 -> {
                     Player.savePlayer(player);
-                    Deck.saveDeck(deck,"PlayerDeck");
+                    Deck.saveDeck(deck, "PlayerDeck");
                     System.exit(3);
-                    break;
                 }
                 default -> System.out.println("Please enter 1 or 2");
 
@@ -88,7 +78,7 @@ public class Game {
         System.out.println("********************Reward***************************");
 
         while (loop) {
-            String input = getInput();
+            String input = getStringInput();
             switch (input) {
                 case "1", "2", "3" -> {
                     deck.getDrawPile().add(cardLibrary.getHandPile().get(Integer.parseInt(input) - 1));
@@ -114,9 +104,26 @@ public class Game {
         System.out.println("*********************Rest****************************");
     }
 
-
-    public static String getInput() {
+    public static String getStringInput() {
+        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public static int getIntInput(int lowerBound, int upperbound) {
+        Scanner scanner = new Scanner(System.in);
+        int input;
+        try {
+             input = scanner.nextInt();
+            if (input >= lowerBound && input <= upperbound) {
+                return input;
+            }else {
+                System.out.println("Please enter a number between " + lowerBound + " and " + upperbound);
+            }
+        } catch (Exception e) {
+            System.out.println("Please only enter numbers");
+        }
+        scanner.reset();
+        return getIntInput(lowerBound,upperbound);
     }
 
     public static void deleteSave() {
@@ -139,5 +146,21 @@ public class Game {
 
     }
 
+    public static Boolean getConfirmation() {
+        System.out.println("1.Yes 2.No");
 
+        switch (Game.getStringInput()) {
+            case "1" -> {
+                return true;
+            }
+            case "2" -> {
+                return false;
+            }
+            default -> {
+                System.out.println("Choose 1 or 2");
+                return getConfirmation();
+            }
+        }
+    }
 }
+

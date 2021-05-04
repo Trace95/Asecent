@@ -2,13 +2,13 @@
 public class TurnFlow {
 
     public static void combat(Player player, Enemy enemy, Deck deck, Deck enemyDeck) {
-        // shuffle the deck
+        // Shuffle the deck
         deck.shuffle();
-        // make turn counter
+        // Turn counter
         int turn = 1;
         //Print out Player name vs Enemy name
         System.out.println(player.getName() + " Versus " + enemy.getName());
-        // make enemy deck
+
 
         while (enemy.getHealthPoints() > 0) {
             System.out.println("\nTurn: " + turn + " Level: " + player.getPlayerLevel());
@@ -40,7 +40,7 @@ public class TurnFlow {
         while (!endTurn) {
 
             // get input
-            String input = Game.getInput();
+            String input = Game.getStringInput();
             // check player isn't dead
             if (player.getHealthPoints() <= 0) {
                 System.out.println(player.getName() + " died at level" + player.getPlayerLevel());
@@ -127,12 +127,15 @@ public class TurnFlow {
         GamePiece.decayWeak(player);
         GamePiece.decayVulnerable(player);
 
-        // status effect changes
+
+        // Apply status damage
         Combat.poisonStep(player);
         Combat.poisonStep(enemy);
         // Enemy turn
         Combat.playCard(enemy, player, enemyDeck.getHandPile().get(0), enemyDeck);
         enemyDeck.discardHand();
+
+
 
         // status decay
         GamePiece.decayPoison(player);

@@ -9,7 +9,7 @@ public class Shop {
         cardLibrary.drawHand(6);
 
         boolean loop = true;
-        while (loop == true) {
+        while (loop) {
 
             int count = 1;
             System.out.println("********************SHOP***************************");
@@ -26,7 +26,7 @@ public class Shop {
             }
             System.out.println("********************SHOP***************************");
 
-            String input = Game.getInput();
+            String input = Game.getStringInput();
 
             switch (input) {
                 case "1", "2", "3", "4", "5", "6":
@@ -76,7 +76,7 @@ public class Shop {
             }
             System.out.println("B = Back to shop");
             System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
-            String input = Game.getInput();
+            String input = Game.getStringInput();
             if (input.equals("b") || input.equals("B")) {
                 loop = false;
             } else {
@@ -86,7 +86,6 @@ public class Shop {
                     } else {
                         System.out.println(deck.getDrawPile().get(Integer.parseInt(input) - 1).getName() + " was removed from the deck");
                         deck.getDrawPile().remove(Integer.parseInt(input) - 1);
-                        loop = false;
                         return true;
 
                     }

@@ -100,8 +100,9 @@ public class Enemy extends GamePiece {
         String intent = "";
         deck.drawHand(1);
         Card card = deck.getHandPile().get(0);
-        Boolean playerVulnerable = false;
-        Boolean isWeak = false;
+        boolean playerVulnerable = false;
+        boolean isWeak = false;
+
 
         if (player.getVulnerable() > 0) {
             playerVulnerable = true;
@@ -122,12 +123,12 @@ public class Enemy extends GamePiece {
             damage = (int) Math.round(damage * 1.25);
         }
 
-        if (card.getType().equals("Attack") && card.getHits() <= 1) {
+        if (card.getType().equals(CardType.Attack) && card.getHits() <= 1) {
             intent += enemy.getName() + " is attacking for " + damage + " damage";
-        } else if (card.getType().equals("Attack") && card.getHits() > 1) {
+        } else if (card.getType().equals(CardType.Attack) && card.getHits() > 1) {
             intent += enemy.getName() + " is attacking for " + (card.getAttack() + enemy.getStrength()) + " damage " + card.getHits() + " times";
         } else {
-            intent = enemy.getName() + " is going to use " + card.getName();
+            intent = enemy.getName() + " is going to use a skill";
         }
         return intent;
     }

@@ -20,10 +20,10 @@ public class Combat {
 
         // edit damage due to status effects
         if (attacker.getWeak() > 0) {
-            damage = (int) Math.round(damage * 0.75);
+            damage = (int) Math.round(damage * 0.70);
         }
         if (defender.getVulnerable() > 0) {
-            damage = (int) Math.round(damage * 1.25);
+            damage = (int) Math.round(damage * 1.30);
         }
 
         if (damage < 0) { // prevent negative damage affecting calculations
@@ -56,6 +56,7 @@ public class Combat {
     private static void drawStep(int drawAmount, Deck deck, GamePiece attacker) {
         for (int i = 0; i < drawAmount; i++) {
             deck.getHandPile().add(deck.draw());
+            System.out.println(attacker.getName() + " draws " + drawAmount +"cards");
         }
         attacker.setHandSize(attacker.getHandSize() + drawAmount);
     }
@@ -101,7 +102,7 @@ public class Combat {
             System.out.println(card.getName() + " applied " + card.getDexterity() + " points of dexterity");
         }
         if (card.getVulnerable() > 0) {
-            System.out.println(defender.getName() + " received " + (card.getVulnerable()-1)   + " points of vulnerability");
+            System.out.println(defender.getName() + " received " + card.getVulnerable()   + " points of vulnerability");
         }
         if (card.getWeak() > 0) {
             System.out.println(defender.getName() + " received " + card.getWeak() + " points of weakness");

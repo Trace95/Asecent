@@ -48,10 +48,9 @@ public class Player extends GamePiece{
 
     public static Player makePlayer() {
         System.out.print("Enter player name: ");
-        String playerName = Game.getInput();
+        String playerName = Game.getStringInput();
         System.out.println();
-        Player player = new Player(playerName);
-        return player;
+        return new Player(playerName);
     }
 
     public static void savePlayer(Player player) {
@@ -72,8 +71,6 @@ public class Player extends GamePiece{
             int baseHealthPoints = scanner.nextInt();
             int playerLevel = scanner.nextInt();
             int gold = scanner.nextInt();
-            scanner.close();
-            System.out.println(name + " level: "+ playerLevel + " was loaded" );
             return new Player(name, healthPoints, baseHealthPoints, playerLevel, gold);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

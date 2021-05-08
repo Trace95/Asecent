@@ -1,33 +1,27 @@
 public class DeckBuilder {
 
     public static void deckBuilderMenu() {
-
-
         boolean loop = true;
         while (loop) {
-            System.out.println("1.Edit the CardLibrary");
-            System.out.println("2.Create a new Deck");
-            System.out.println("3.Quit");
+            System.out.println("1.Create a card");
+            System.out.println("2.Create a deck");
+            System.out.println("3.Delete a card");
+            System.out.println("4.Quit");
 
-            switch (Game.getStringInput()) {
-                case "1" -> editCardLibrary();
-                case "2" -> buildDeck();
-                case "3", "q", "Q" -> loop = false;
-                default -> System.out.println("Please enter a valid input");
+            switch (Game.getIntInput(1, 5)) {
+                case 1 -> addCardToCardLibrary();
+                case 2 -> buildDeck();
+                case 3 -> deleteCardFromCardLibrary();
+                case 4 -> loop = false;
             }
-
         }
-
-
     }
-
 
     private static void buildDeck() {
         Deck newDeck = new Deck();
         System.out.println("Enter deck name");
         String name = Game.getStringInput();
         int count = 1;
-
         Deck cardLibrary = Deck.makeCardLibrary();
 
         for (Card card : cardLibrary.getDrawPile()) {
@@ -55,40 +49,18 @@ public class DeckBuilder {
                 System.out.println("Please enter a valid input");
             }
         }
-
-
         Deck.saveDeck(newDeck, name);
 
     }
 
-    private static void editCardLibrary() {
-        Deck cardLibrary = Deck.makeCardLibrary();
-
-
-        boolean loop = true;
-        while (loop) {
-
-            System.out.println("1.Create new card\n2.Remove card\n3.Quit");
-
-            switch (Game.getStringInput()) {
-                case "1" -> addCardToCardLibrary();
-                case "2" -> deleteCard(cardLibrary);
-                case "3" -> loop = false;
-                default -> System.out.println("Please enter a valid input");
-            }
-
-        }
-    }
-
-
     private static void addCardToCardLibrary() {
         Card card = createCard();
         System.out.println("Save card?");
-        if(Game.getConfirmation()){
+        if (Game.getConfirmation()) {
             Deck cardLibrary = Deck.makeCardLibrary();
             cardLibrary.getDrawPile().add(card);
             Deck.saveDeck(cardLibrary, "CardLibrary");
-        }else{
+        } else {
             System.out.println(card.getName() + "was not saved");
         }
 
@@ -97,7 +69,7 @@ public class DeckBuilder {
     private static Card createCard() {
         String name;
         int cost;
-        CardType type = null;
+        CardType type;
         int attack = 0;
         int block;
         String effect;
@@ -116,24 +88,12 @@ public class DeckBuilder {
         System.out.println("Please enter card name");
         name = Game.getStringInput();
 
-        boolean loop = true;
-        while (loop) {
-            System.out.println("Please enter card type:\n1.Attack\n2.Skill");
-            switch (Game.getStringInput()) {
-                case "1" -> {
-                    type = CardType.Attack;
-                    loop = false;
-                }
-                case "2" -> {
-                    type = CardType.Skill;
-                    loop = false;
-
-                }
-                default -> System.out.println("Please enter 1 or 2");
-            }
-
+        System.out.println("Please enter card type:\n1.Attack\n2.Skill");
+        if (Game.getIntInput(1, 2) == 1) {
+            type = CardType.Attack;
+        } else {
+            type = CardType.Skill;
         }
-
 
         if (type.equals(CardType.Attack)) {
             System.out.println("Please enter card attack");
@@ -165,10 +125,8 @@ public class DeckBuilder {
         System.out.println("Please enter card parry");
         parry = Game.getIntInput(0, 100);
 
-
         System.out.println("Exhaust?");
         exhaust = Game.getConfirmation();
-
 
         System.out.println("Please enter card strength");
         strength = Game.getIntInput(0, 100);
@@ -184,13 +142,14 @@ public class DeckBuilder {
 
         Card card = new Card(name, cost, type, attack, block, effect, hits, draw, goldCost, poison, vulnerable, weak, parry, exhaust, strength, dexterity);
         System.out.println(card.getCardDisplay());
-            return card;
+        return card;
     }
 
-    private static void deleteCard(Deck cardLibrary) {
+    private static void deleteCardFromCardLibrary() {
         boolean loop = true;
         while (loop) {
             int count = 1;
+            Deck cardLibrary = Deck.makeCardLibrary();
             for (Card card : cardLibrary.getDrawPile()) {
                 System.out.println(count + "." + card.getCardDisplay() + "\n");
                 count++;
@@ -212,8 +171,8 @@ public class DeckBuilder {
             } else {
                 System.out.println("Please enter a valid input");
             }
+            Deck.saveDeck(cardLibrary, "CardLibrary");
         }
-        Deck.saveDeck(cardLibrary, "CardLibrary");
 
     }
 

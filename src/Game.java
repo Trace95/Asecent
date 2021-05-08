@@ -41,7 +41,6 @@ public class Game {
         System.out.println("2.Save & Quit");
 
         while (true) {
-
             switch (getIntInput(1, 2)) {
                 case 1 -> gameStart(player, deck);
                 case 2 -> {

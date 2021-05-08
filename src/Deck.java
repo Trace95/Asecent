@@ -42,9 +42,13 @@ public class Deck {
     public void showHand() {
         int position = 1; // position in hand
         System.out.println("*************************\uD835\uDC07\uD835\uDC00\uD835\uDC0D\uD835\uDC03*************************");
-        for (Card card : handPile) {
-            System.out.println(position + "." + card.getCardDisplay() + "\n");
-            position++;
+        if (getHandPile().size() == 0) {
+            System.out.println("                        <EMPTY>");
+        } else {
+            for (Card card : handPile) {
+                System.out.println(position + "." + card.getCardDisplay() + "\n");
+                position++;
+            }
         }
         showNonCombatOptions();
         System.out.println("*************************\uD835\uDC07\uD835\uDC00\uD835\uDC0D\uD835\uDC03*************************");
@@ -117,7 +121,6 @@ public class Deck {
         return exhaustPile.size();
     }
 
-
     //DeckPile
     public void packUpDeck() {
         drawPile.addAll(discardPile);
@@ -137,7 +140,7 @@ public class Deck {
     public void showDrawPile(Deck deck) {
         int position = 1;
         // have to sort this into alphabetical order so user cant see whats coming next in their deck
-        ArrayList<Card> sortedDeck = sortDeckByCardName(deck.handPile);
+        ArrayList<Card> sortedDeck = sortDeckByCardName(deck.drawPile);
         System.out.println("*************************\uD835\uDC03\uD835\uDC04\uD835\uDC02\uD835\uDC0A*************************");
         for (int i = 0; i < sortedDeck.size(); i++) {
             Card card = sortedDeck.get(i);
@@ -165,7 +168,6 @@ public class Deck {
         return deck;
     }
 
-
     // Deck loading & Saving
     public static Deck makeBaseDeck() { //  makes base deck
         Deck deck = new Deck();
@@ -184,11 +186,11 @@ public class Deck {
         deck.drawPile.add(strike);
         deck.drawPile.add(strike);
         deck.drawPile.add(strike);
-        deck.drawPile.add(defend);
-        deck.drawPile.add(defend);
-        deck.drawPile.add(defend);
-        deck.drawPile.add(defend);
 
+        deck.drawPile.add(defend);
+        deck.drawPile.add(defend);
+        deck.drawPile.add(defend);
+        deck.drawPile.add(defend);
 
         deck.drawPile.add(neutralize);
         deck.drawPile.add(backFlip);
@@ -204,7 +206,7 @@ public class Deck {
 
     public static Deck makeCardLibrary() {
         Deck cardLibrary;
-        cardLibrary =loadDeck("CardLibrary");
+        cardLibrary = loadDeck("CardLibrary");
         cardLibrary.sortDeckByCardName(cardLibrary.getDrawPile());
         return cardLibrary;
 
@@ -302,8 +304,6 @@ public class Deck {
         }
         return deckValueDump.toString();
     }
-
-
     //Getters
     public ArrayList<Card> getDrawPile() {
         return drawPile;

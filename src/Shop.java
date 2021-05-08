@@ -4,7 +4,6 @@ public class Shop {
         Deck cardLibrary = Deck.makeCardLibrary();
         boolean shopVisted = false;
         cardLibrary.shuffle();
-        int cost = -1; //test value
 
         cardLibrary.drawHand(6);
 
@@ -13,12 +12,13 @@ public class Shop {
 
             int count = 1;
             System.out.println("********************SHOP***************************");
-            System.out.println("You may buy as many cards as you can afford! \n");
+            System.out.println("You may buy as many cards as you can afford!");
+            System.out.println("Gold: " + player.getGold() + "\n");
             for (Card card : cardLibrary.getHandPile()) {
-                System.out.println(count + "." + card.getCardDisplay() + " Cost:" + cost + "\n");
+                System.out.println(count + "." + card.getCardDisplay() + " Cost:" + card.getGoldCost() + "\n");
                 count++;
             }
-            System.out.print("Q = Leave the shop              ");
+            System.out.print("Q = Leave the shop                    ");
             if (!shopVisted) {
                 System.out.println("R = Card removal service (costs: 75 gold)");
             } else {
@@ -35,10 +35,17 @@ public class Shop {
                         System.out.println(input + " is not a valid input.\nPlease Enter a valid input");
                         break;
                     }
-                    deck.getDrawPile().add(cardLibrary.getHandPile().get(intInput));
-                    System.out.println(cardLibrary.getHandPile().get(intInput).getName() + " was added to the deck");
-                    cardLibrary.getHandPile().remove(intInput);
+                    if(cardLibrary.getHandPile().get(intInput).getGoldCost() <= player.getGold()){
+                        deck.getDrawPile().add(cardLibrary.getHandPile().get(intInput));
+                        System.out.println(cardLibrary.getHandPile().get(intInput).getName() + " was added to the deck");
+                        player.setGold(player.getGold() - cardLibrary.getHandPile().get(intInput).getGoldCost());
+                        cardLibrary.getHandPile().remove(intInput);
+                        break;
+                    }else{
+                        System.out.println("You cannot afford that card");
+                    }
                     break;
+
                 case "q", "Q":
                     loop = false;
                     break;
@@ -84,6 +91,9 @@ public class Shop {
                     if (Integer.parseInt(input) - 1 > deck.getDrawPile().size() || Integer.parseInt(input) - 1 < 0) {
                         System.out.println("There is no card in the deck at position " + input + ". \nPlease enter another value");
                     } else {
+                        System.out.println("Are you sure you would like to remove \"" + deck.getDrawPile().get(Integer.parseInt(input) - 1).getName() + "\" from the deck?");
+                        Game.getConfirmation();
+
                         System.out.println(deck.getDrawPile().get(Integer.parseInt(input) - 1).getName() + " was removed from the deck");
                         deck.getDrawPile().remove(Integer.parseInt(input) - 1);
                         return true;
@@ -97,6 +107,10 @@ public class Shop {
 
         }
         return false;
+    }
+
+    public static void showShop(Player player, Deck deck) {
+
     }
 }
 

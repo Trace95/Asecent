@@ -272,7 +272,6 @@ public class Deck {
 
             }
             scanner.close();
-            System.out.println("Deck of " + cardCount + " cards was loaded");
             return deck;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
